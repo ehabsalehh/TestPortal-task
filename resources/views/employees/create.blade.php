@@ -6,9 +6,8 @@
         <div class="lead">
             Add new employee.
         </div>
-
         <div class="container mt-4">
-            <form method="POST" action="{{ route('companies.store')}}"  enctype="multipart/form-data">
+            <form method="POST" action="{{ route('employees.store') }}"  enctype="multipart/form-data">
                 @csrf
                 <div class="mb-2">
                     <label for="name" class="form-label">Name</label>
