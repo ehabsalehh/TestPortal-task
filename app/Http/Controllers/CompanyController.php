@@ -49,8 +49,8 @@ class CompanyController extends Controller
     {
         $this->store = $store;
          $this->store->store($request);
-        // return redirect()->route('companies.index')
-        // ->withSuccess(__('company created successfully.'));
+        return redirect()->route('companies.index')
+        ->withSuccess(__('company created successfully.'));
 
     }
 
@@ -74,7 +74,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        // return view('companies.edit', ['company' => $company]);
+        return view('companies.edit', ['company' => $company]);
     }
 
     /**
@@ -88,8 +88,8 @@ class CompanyController extends Controller
     {
         $this->update = $update;
         $this->update->update($request,$company);
-        // return redirect()->route('companies.index')
-        // ->withSuccess(__('company created successfully.'));
+        return redirect()->route('companies.index')
+        ->withSuccess(__('company created successfully.'));
     }
 
     /**
@@ -103,7 +103,7 @@ class CompanyController extends Controller
         Storage::exists('logos/'.$company->logo) &&
              Storage::delete('logos/'.$company->logo);
         $company->delete();
-        // return redirect()->route('companies.index')
-        // ->withSuccess(__('company created successfully.'));
+        return redirect()->route('companies.index')
+        ->withSuccess(__('company created successfully.'));
     }
 }
