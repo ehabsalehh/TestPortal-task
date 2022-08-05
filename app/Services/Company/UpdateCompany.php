@@ -8,12 +8,9 @@ class UpdateCompany
 {
     function update($request, Company $company){
         $validated= $request->validated();
-        $file =  $request->file('logo');
-        $fileName =$file->getClientOriginalName();
-        $validated['logo'] = $fileName;
-        $file->storeAs(
-            'logos',$file->getClientOriginalName()
-        );
+        $request->file('logo')->store('public/logos');
+        $fileName = $request->file('logo')->hashName();
+        $validated['logo'] = $fileName; 
         $company->update($validated);
 
     }

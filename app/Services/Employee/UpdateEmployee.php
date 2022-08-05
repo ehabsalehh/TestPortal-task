@@ -8,13 +8,10 @@ class UpdateEmployee
 {
     function update($request, Employee $employee){
         $validated= $request->validated();
-        $validated['password'] = bcrypt($request['password']);
-        $file =  $request->file('image');
-        $fileName =$file->getClientOriginalName();
+        $request->file('image')->store('public/Images');
+        $fileName = $request->file('image')->hashName();
         $validated['image'] = $fileName;
-        $file->storeAs(
-            'Images',$file->getClientOriginalName()
-        );
+        $validated['password'] = bcrypt($request['password']);
         $employee->update($validated);
 
     }

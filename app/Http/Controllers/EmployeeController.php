@@ -83,8 +83,8 @@ class EmployeeController extends Controller
     {
         $this->update = $update;
         $this->update->update($request,$employee);
-        // return redirect()->route('employees.index')
-        // ->withSuccess(__('employees updated successfully.'));
+        return redirect()->route('employees.index')
+        ->withSuccess(__('employees updated successfully.'));
     }
 
     /**
@@ -98,7 +98,7 @@ class EmployeeController extends Controller
         Storage::exists('Images/'.$employee->image) &&
         Storage::delete('Images/'.$employee->image);
         $employee->delete();
-        // return redirect()->route('employees.index')
-        // ->withSuccess(__('employees Deleted successfully.'));
+        return redirect()->route('employees.index')
+        ->withSuccess(__('employees Deleted successfully.'));
     }
 }
