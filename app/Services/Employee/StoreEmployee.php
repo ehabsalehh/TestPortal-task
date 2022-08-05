@@ -16,11 +16,11 @@ class StoreEmployee
         $fileName = $request->file('image')->hashName();
         $validated['image'] = $fileName; 
         $employee = Employee::create($validated);
-        // $details = [
-        //     'title' => 'Mail from ehabsaleh',
-        //     'body' => 'welcome to our website'
-        // ];
-        // Mail::to($employee->email)->send(new WelcomeMail($details));
+        $details = [
+            'title' => 'Mail from ehabsaleh',
+            'body' => 'welcome to our website'
+        ];
+        Mail::to($employee->email)->send(new WelcomeMail($details));
     }
 
 }
