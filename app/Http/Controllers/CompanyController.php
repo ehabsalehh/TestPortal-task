@@ -25,7 +25,6 @@ class CompanyController extends Controller
 
         return $companies =  datatables(Company::query())->make(true);
 
-        // return view('companies.companiesAjax', compact('companies'));
     }
 
     /**
@@ -49,7 +48,7 @@ class CompanyController extends Controller
     {
         $this->store = $store;
          $this->store->store($request);
-        return redirect()->route('companies.index')
+        return redirect()->route('companies.listCompanies')
         ->withSuccess(__('company created successfully.'));
 
     }
@@ -63,7 +62,7 @@ class CompanyController extends Controller
     public function show(Company $company)
     {
         
-        // return view('companies.show', ['company' => $company]);
+        return view('companies.show', ['company' => $company]);
     }
 
     /**
@@ -88,7 +87,7 @@ class CompanyController extends Controller
     {
         $this->update = $update;
         $this->update->update($request,$company);
-        return redirect()->route('companies.index')
+        return redirect()->route('companies.listCompanies')
         ->withSuccess(__('company created successfully.'));
     }
 
@@ -103,7 +102,7 @@ class CompanyController extends Controller
         Storage::exists('logos/'.$company->logo) &&
              Storage::delete('logos/'.$company->logo);
         $company->delete();
-        return redirect()->route('companies.index')
+        return redirect()->route('companies.listCompanies')
         ->withSuccess(__('company created successfully.'));
     }
 }
