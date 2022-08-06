@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Employee;
 use Illuminate\Support\Facades\Storage;
 use App\Services\Employee\StoreEmployee;
 use App\Services\Employee\UpdateEmployee;
 use App\Http\Requests\storeEmployeeRequest;
-use App\Models\Company;
 
 class EmployeeController extends Controller
 {
@@ -20,9 +20,14 @@ class EmployeeController extends Controller
      */
     public function index()
     {
+        $employees = Employee::get();
+        return view('employees.index', compact('employees'));
+        // return datatables(Employee::query())->make(true);        
+    }
+    public function dataTableIndex()
+    {
         return datatables(Employee::query())->make(true);        
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -43,7 +48,7 @@ class EmployeeController extends Controller
     public function store(storeEmployeeRequest $request,StoreEmployee $store)
     {
         $this->store = $store;
-         $this->store->store($request);
+        $this->store->store($request);
          return redirect()->route('employees.listEmployees')
         ->withSuccess(__('employee created successfully.'));
     }
@@ -68,7 +73,11 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        return view('employees.edit', ['employee' => $employee]);
+        $companies = Company::get();
+        return view('employees.edit', [
+                'employee' => $employee,
+                'companies' => $companies
+            ]);
 
     }
 
@@ -83,7 +92,7 @@ class EmployeeController extends Controller
     {
         $this->update = $update;
         $this->update->update($request,$employee);
-        return redirect()->route('employees.listEmployees')
+        return redirect()->route('employees.index')
         ->withSuccess(__('employees updated successfully.'));
     }
 
@@ -95,10 +104,11 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        Storage::exists('Images/'.$employee->image) &&
-        Storage::delete('Images/'.$employee->image);
+        if(Storage::exists('/storage/Images/'.$employee->image)){
+            Storage::delete('/storage/Images/'.$employee->image);
+        }
         $employee->delete();
-        return redirect()->route('employees.listEmployees')
+        return redirect()->route('employees.index')
         ->withSuccess(__('employees Deleted successfully.'));
     }
 }

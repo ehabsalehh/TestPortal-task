@@ -1,10 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Company;
-use Illuminate\Http\Request;
-use App\services\ResponseMessage;
 use App\Services\Company\StoreCompany;
 use App\Services\Company\UpdateCompany;
 use Illuminate\Support\Facades\Storage;
@@ -22,9 +19,12 @@ class CompanyController extends Controller
      */
     public function index()
     {
-
-        return $companies =  datatables(Company::query())->make(true);
-
+        $companies = Company::get();
+        return view('companies.index', compact('companies'));
+    }
+    public function dataTableIndex()
+    {
+        return datatables(Company::query())->make(true);        
     }
 
     /**
@@ -35,7 +35,6 @@ class CompanyController extends Controller
     public function create()
     {
         return view('companies.create');
-
     }
 
     /**
@@ -48,7 +47,7 @@ class CompanyController extends Controller
     {
         $this->store = $store;
          $this->store->store($request);
-        return redirect()->route('companies.listCompanies')
+        return redirect()->route('companies.index')
         ->withSuccess(__('company created successfully.'));
 
     }
@@ -61,7 +60,6 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        
         return view('companies.show', ['company' => $company]);
     }
 
@@ -87,7 +85,7 @@ class CompanyController extends Controller
     {
         $this->update = $update;
         $this->update->update($request,$company);
-        return redirect()->route('companies.listCompanies')
+        return redirect()->route('companies.index')
         ->withSuccess(__('company created successfully.'));
     }
 
@@ -99,10 +97,11 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        Storage::exists('logos/'.$company->logo) &&
-             Storage::delete('logos/'.$company->logo);
+        if( Storage::exists('/storage/logos/'.$company->logo)){
+            Storage::delete('/storage/logos/'.$company->logo);
+        }
         $company->delete();
-        return redirect()->route('companies.listCompanies')
+        return redirect()->route('companies.index')
         ->withSuccess(__('company created successfully.'));
     }
 }

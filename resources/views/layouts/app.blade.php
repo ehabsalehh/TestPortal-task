@@ -53,11 +53,17 @@
                             @endif
                         @else
                                 <!-- Right Side Of Navbar -->
-                                <a class="navbar-brand" href="{{ route('companies.listCompanies')}}">
+                                <a class="navbar-brand btn btn-light btn-sm" href="{{ route('companies.index')}}">
                                     campanies
                                 </a>
-                                <a class="navbar-brand" href="{{ route('employees.listEmployees')}}">
+                                <a class="navbar-brand btn btn-light btn-sm" href="{{ route('companies.listCompanies')}}">
+                                    dataTable Companies
+                                </a>
+                                <a class="navbar-brand btn btn-light btn-sm" href="{{ route('employees.index')}}">
                                     employees
+                                </a>
+                                <a class="navbar-brand btn btn-light btn-sm" href="{{ route('employees.listEmployees')}}">
+                                    dataTable employees
                                 </a>
                           
                         

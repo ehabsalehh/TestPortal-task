@@ -9,6 +9,9 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
+                    <div class= "panel-heading">
+                        <a href="{{ route('employees.create') }}" class="btn btn-primary">Add Employee</a>
+                    </div>
                     <div class="panel-heading">employees</div>
                     <div class="panel-body">
                         <form id= 'search-form'>
@@ -26,6 +29,7 @@
                                     <th>name</th>
                                     <th>email</th>
                                     <th>company</th>
+
                                 </tr>
                             </thead>
                         </table>
@@ -50,12 +54,14 @@
             url: "http://127.0.0.1:8000/getCustomFilterData",
             data: function (d) {
                 d.company = $('#filterId').val();
-            }
+            
+            },
         },
         columns: [
             {data: 'name', name: 'name'},
             {data: 'email', name: 'email'},
             {data: 'company', name: 'company'}
+
         ]
     });
 

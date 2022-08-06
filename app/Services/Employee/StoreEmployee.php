@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Services\Employee;
-
 use App\Models\Employee;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
@@ -17,7 +16,7 @@ class StoreEmployee
         $validated['image'] = $fileName; 
         $employee = Employee::create($validated);
         $details = [
-            'title' => 'Mail from ehabsaleh',
+            'title' => 'Mail from ehab saleh',
             'body' => 'welcome to our website'
         ];
         Mail::to($employee->email)->send(new WelcomeMail($details));

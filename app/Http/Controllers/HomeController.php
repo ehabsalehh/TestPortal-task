@@ -36,12 +36,11 @@ class HomeController extends Controller
     }
     public function getCustomFilterData(Request $request)
     {
-         $filter= isset($request->company)?$request->company:null;
+         $filter= isset($request->company)? $request->company : null;
         if($filter){
-            $employees = Employee::getEmployeesByCompany($request->get('company'))
-                        ->select(['name', 'email', 'company']);
+            $employees = Employee::getEmployeesByCompany($request->get('company'));
         }else{
-            $employees = Employee::select(['name', 'email', 'company']);
+            $employees = Employee::query();
         }
         return datatables($employees)->make(true);        
     }

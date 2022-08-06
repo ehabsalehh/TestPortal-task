@@ -1,12 +1,20 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="bg-light p-4 rounded">
-        <h1>Add new employee</h1>
+        <h1>Add new Employee</h1>
         <div class="lead">
-            Add new employee.
+            Add new Employee
         </div>
+
         <div class="container mt-4">
+            @if(session()->has('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>{{ session()->get('error') }}</strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <form method="POST" action="{{ route('employees.store') }}"  enctype="multipart/form-data">
                 @csrf
                 <div class="mb-2">
@@ -15,11 +23,7 @@
                         type="text" 
                         class="form-control" 
                         name="name" 
-                        placeholder="Name" required>
-
-                    @if ($errors->has('name'))
-                        <span class="text-danger text-left">{{ $errors->first('name') }}</span>
-                    @endif
+                        placeholder="Name" >
                 </div>
                 <div class="mb-2">
                     <label for="email" class="form-label">Email</label>
@@ -27,28 +31,23 @@
                         type="email" 
                         class="form-control" 
                         name="email" 
-                        placeholder="Email address" required>
+                        placeholder="Email address" >
                     @if ($errors->has('email'))
                         <span class="text-danger text-left">{{ $errors->first('email') }}</span>
                     @endif
                 </div>
                 <div class="mb-2">
                     <label for="password">password</label>
-                    <input type="password" name="password" class="form-control" required>
-                    @if ($errors->has('Password'))
-                        <span class="text-danger text-left">{{ $errors->first('Password') }}</span>
-                    @endif
+                    <input id="password" type="password" class="form-control" name="password" required autocomplete="new-password">
                 </div>
                 <div class="mb-2">
                     <label for="password-confirm">password Confirm</label>
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                    {{-- <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  autocomplete="new-password"> --}}
                 </div>
                 <div class="mb-2">
                     <label for="image" class="form-label">image</label>
-                    <input type="file" class = "form-control" name="image" required>
-                    @if ($errors->has('image'))
-                        <span class="text-danger text-left">{{ $errors->first('image') }}</span>
-                    @endif
+                    <input type="file" class = "form-control" name="image" >
                 </div>
                 <div class="mb-2">
                     <label for="company" class="form-label">company</label>
@@ -58,12 +57,11 @@
                         <option value='{{ $company->id }}'>{{ $company->name }}</option>
                         @endforeach
                     </select>
-                    @if ($errors->has('company'))
-                        <span class="text-danger text-left">{{ $errors->first('company') }}</span>
-                    @endif
                 </div>
-                <button type="submit" class="btn btn-primary">Save Employee</button>
+                <button type="submit" class="btn btn-primary">Save Employee</button> 
             </form>
+            <br>
+            <a href="{{ route('employees.index') }}" class="btn btn-primary">Back</a>
         </div>
 
     </div>

@@ -1,48 +1,40 @@
 @extends('layouts.app')
 @section('content')
     <div class="bg-light p-4 rounded">
-        <h1>Add new Company</h1>
+        <h1>edit company</h1>
         <div class="lead">
-            Add new Company.
+            edit company
         </div>
-
         <div class="container mt-4">
-            <form method="POST" action="{{ route('companies.update') }}"  enctype="multipart/form-data">
+            <form method="POST" action="{{ route('companies.update',$company->id) }}"  enctype="multipart/form-data">
                 @csrf
-                <div class="mb-3">
+                @method('PUT')
+                <div class="mb-4">
                     <label for="name" class="form-label">Name</label>
-                    <input value="{{ old('name') }}" 
+                    <input
+                         value="{{ old('name') }}"  
                         type="text" 
                         class="form-control" 
                         name="name" 
-                        placeholder="Name" required>
-
-                    @if ($errors->has('name'))
-                        <span class="text-danger text-left">{{ $errors->first('name') }}</span>
-                    @endif
+                        placeholder="Name" >
                 </div>
-                <div class="mb-3">
-                    <label for="address" class="form-label">address</label>
-                    <input value="{{ old('address') }}"
+                <div class="mb-4">
+                    <label for="name" class="form-label">Address</label>
+                    <input
+                         value="{{ old('address') }}"  
                         type="text" 
                         class="form-control" 
                         name="address" 
-                        placeholder="address" required>
-                    @if ($errors->has('address'))
-                        <span class="text-danger text-left">{{ $errors->first('address') }}</span>
-                    @endif
+                        placeholder="Address" >
                 </div>
-                <div class="mb-3">
-                    <label for="username" class="form-label">logo</label>
-                    <input type="file" name="logo" required>
-                    @if ($errors->has('logo'))
-                        <span class="text-danger text-left">{{ $errors->first('logo') }}</span>
-                    @endif
+                <div class="mb-2">
+                    <label for="logo" class="form-label">logo</label>
+                    <input type="file" class = "form-control" name="logo" >
                 </div>
-
-                <button type="submit" class="btn btn-primary">update</button>
+                <button type="submit" class="btn btn-primary">Save Company</button> 
             </form>
+            <br>
+            <a href="{{ route('companies.index') }}" class="btn btn-primary">Back</a>
         </div>
-
     </div>
 @endsection

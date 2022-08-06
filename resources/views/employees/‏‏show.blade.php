@@ -12,20 +12,23 @@
                                     <table class="table table-striped table-hover" style="text-align:center">
                                         <tr class="alert-success">
                                             <th>{{ __('name') }}</th>
-                                            <th>{{ __('address') }}</th>
-                                            <th>{{ __('logo') }}</th>
+                                            <th>{{ __('email') }}</th>
+                                            <th>{{ __('company') }}</th>
+                                            <th>{{ __('image') }}</th>
                                             <th>{{ __('operation') }}</th>
+
                                         </tr>
                                             <tr>
-                                            <td>{{$company->name}}</td>
-                                            <td>{{$company->address}}</td>
+                                            <td>{{$employee->name}}</td>
+                                            <td>{{$employee->email}}</td>
+                                            <td>{{$employee->company}}</td>
                                             <td>
-                                                <img src="{{URL::asset('/storage/logos/'.$company->logo)}}"
+                                                <img src="{{URL::asset('/storage/Images/'.$employee->image)}}"
                                                     style="height:50px; width:100px;">
                                             </td>
 
                                             <td>
-                                                <a href="{{ route('companies.edit', $company->id) }}"
+                                                <a href="{{ route('employees.edit', $employee->id) }}"
                                                      class="btn btn-info btn-sm">Edit
                                                 </a>
                                                 <a href=""
@@ -33,22 +36,20 @@
                                                         var result = confirm('Are you sure you want to delete this record?');
                                                         if(result){
                                                             event.preventDefault();
-                                                            document.getElementById('delete-form-{{$company->id}}').submit();
+                                                            document.getElementById('delete-form-{{$employee->id}}').submit();
                                                         }"
                                                     >
                                                     {{__('Delete')}}
                                                 </a>
-                                                <a href="{{ route('companies.index') }}" class="btn btn-info btn-sm">Back</a>
-
-                                                <form method="POST" id="delete-form-{{$company->id}}"
-                                                            action="{{route('companies.destroy', [$company->id])}}">
+                                                <a href="{{ route('employees.index') }}" class="btn btn-info btn-sm">Back</a>
+                                                <form method="POST" id="delete-form-{{$employee->id}}"
+                                                            action="{{route('employees.destroy', [$employee->id])}}">
                                                     {{csrf_field()}}
                                                     <input type="hidden" name="_method" value="DELETE">
                                                 </form>
                                             </td>
                                         </tr>
                                     </table>
-                                    
                                 </div>
                             </div>
                         </div>
