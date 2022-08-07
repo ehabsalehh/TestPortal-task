@@ -37,7 +37,7 @@
             $('#companies-datatable').DataTable({
                 "processing": true,
                 "serverSide": true,
-                "ajax": "{{ route('companies.index') }}",
+                "ajax": "{{ route('companies.dataTableIndex') }}",
                 "columns": [
                     { "data": "name" },
                     { "data": "address" },
